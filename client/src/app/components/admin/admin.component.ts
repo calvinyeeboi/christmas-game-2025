@@ -14,11 +14,16 @@ import { MainService } from "../../services/main.service";
   standalone: true,
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss'],
-  imports: [FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatButtonModule],
+  imports: [
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+  ],
 })
 export class AdminComponent implements OnInit {
   msg: string = '';
-  startGameMsg: string = 'Start Game';
 
   public mainService: MainService = inject(MainService);
   public adminService: AdminService = inject(AdminService);
@@ -32,6 +37,5 @@ export class AdminComponent implements OnInit {
 
   startGame(): void {
     this.adminService.startGame();
-    this.startGameMsg = 'It has begin';
   }
 }
