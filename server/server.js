@@ -1,24 +1,46 @@
 import { WebSocketServer, WebSocket } from 'ws';
+import CONSTANTS from './constants.js';
+import PlayerController from './controllers/player.controller.js';
 
+const playerController = new PlayerController();
 const server = new WebSocketServer({ 
     port: 8081 
 });
-
 const clients = new Set();
 
-const sendMessage = (message, socket) => {
+const handleMessage = (message, socket) => {
     const splitRoute = message.route.split('/');
     const route = splitRoute[0];
-    const method = splitRoute[1];
+    let response = message;
+    switch (route) {
+        case CONSTANTS.API_ROUTES.ADMIN.ROUTE:
+            sendToClients(message);
+            break;
+        case CONSTANTS.API_ROUTES.PLAYER.ROUTE:
+            response = playerController.getResponse(response);
+            break;
+    }
+    sendToClients(response);
+}
+
+const sendToClients = (response) => {
     clients.forEach((client) => {
-        if ((client !== socket || route === 'admin') && client.readyState === WebSocket.OPEN) {
-            client.send(JSON.stringify(message));
+        if (client.readyState === WebSocket.OPEN) {
+            client.send(JSON.stringify(response));
         }
     });
 }
 
-server.on('connection', (socket) => {
+const addClient = (socket) => {
     clients.add(socket);
+}
+
+const deleteClient = (socket) => {
+    clients.delete(socket);
+}
+
+server.on('connection', (socket) => {
+    addClient(socket);
 
     socket.on('message', (message) => {
         let parsedMsg = null;
@@ -28,12 +50,12 @@ server.on('connection', (socket) => {
             console.error(e);
         }
         if (parsedMsg) {
-            sendMessage(parsedMsg, socket);
+            handleMessage(parsedMsg, socket);
         }
     });
 
     socket.on('close', () => {
-        clients.delete(socket);
+        deleteClient(socket);
     });
 
     socket.on('error', (error) => {
