@@ -3,6 +3,7 @@ const CONSTANTS = {
     ADMIN: {
       ROUTE: 'admin',
       TOAST: 'toast',
+      START_GAME: 'startGame',
     },
     PLAYER: {
       ROUTE: 'player',

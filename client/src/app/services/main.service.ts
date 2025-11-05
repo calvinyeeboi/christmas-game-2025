@@ -2,7 +2,7 @@
 import { DestroyRef, inject, Injectable } from '@angular/core';
 
 // Utils
-import CONSTANTS from '../constants';
+import CONSTANTS from '../../../../server/constants';
 
 // Services
 import { WebsocketService } from './websocket.service';
