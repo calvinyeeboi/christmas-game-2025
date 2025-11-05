@@ -4,10 +4,11 @@ const CONSTANTS = {
       ROUTE: 'admin',
       TOAST: 'toast',
     },
-    USER: {
-      ROUTE: 'user',
+    PLAYER: {
+      ROUTE: 'player',
       LOGIN: 'login',
       ROOM: 'room',
+      GET_PLAYERS: 'getPlayers',
     }
   }
 };

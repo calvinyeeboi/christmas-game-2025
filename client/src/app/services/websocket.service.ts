@@ -48,7 +48,6 @@ export class WebsocketService {
   }
 
   sendMessage({ route = '', data = {msg: ''} }): void {
-    console.log('sendMessage');
     this.ws.send(JSON.stringify({ route, data }));
   }
 }

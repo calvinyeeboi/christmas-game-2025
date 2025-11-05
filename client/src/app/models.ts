@@ -7,3 +7,13 @@ export interface ApiResponse {
 export interface ApiData {
   msg?: string;
 }
+
+export interface Player {
+  id: number;
+  name: string;
+  inventory: Inventory;
+}
+
+export interface Inventory {
+  [key: string]: any;
+}

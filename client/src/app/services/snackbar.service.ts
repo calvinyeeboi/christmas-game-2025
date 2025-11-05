@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 // Utils
-import CONSTANTS from '../constants';
+import CONSTANTS from '../../../../server/constants';
 
 @Injectable({
   providedIn: 'root' // Makes the service a singleton available throughout the application
