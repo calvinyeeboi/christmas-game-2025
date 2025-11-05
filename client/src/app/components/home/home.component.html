@@ -1,5 +1,5 @@
-<ng-container *ngIf="!mainService.gameStarted; else loginTemplate">
-
+<ng-container *ngIf="!adminService.gameStarted; else loginTemplate">
+  <span>Game has not begun yet...</span>
 </ng-container>
 <ng-template #loginTemplate>
   <mat-form-field>

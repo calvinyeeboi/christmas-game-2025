@@ -47,7 +47,7 @@ export class WebsocketService {
     }
   }
 
-  sendMessage({ route = '', data = {msg: ''} }): void {
+  sendMessage({ route = '', data = {} }): void {
     this.ws.send(JSON.stringify({ route, data }));
   }
 }

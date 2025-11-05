@@ -1,0 +1,11 @@
+@use '@angular/material' as mat;
+@import "colors";
+
+:root {
+  @include mat.button-overrides((
+    filled-container-color: $green-color,
+    filled-label-text-color: #ffffff,
+    filled-disabled-label-text-color: $disabled-color,
+    filled-container-shape: 0.5rem,
+  ));
+}

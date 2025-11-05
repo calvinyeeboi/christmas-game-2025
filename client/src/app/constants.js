@@ -9,7 +9,7 @@ const CONSTANTS = {
       LOGIN: 'login',
       ROOM: 'room',
       GET_PLAYERS: 'getPlayers',
-    }
+    },
   }
 };
 export default CONSTANTS;

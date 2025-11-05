@@ -5,7 +5,7 @@ export interface ApiResponse {
 }
 
 export interface ApiData {
-  msg?: string;
+  [key: string]: any;
 }
 
 export interface Player {

@@ -1,13 +1,16 @@
 @import "abstracts/colors";
+@import "material-overrides";
 
 html,
 body {
   color: $green-color !important;
-  font-family: "Roboto", "sans-serif";
+  font-family: "arial";
   font-weight: 400;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+  margin: 0;
+  background-color: $light-green-color;
 }

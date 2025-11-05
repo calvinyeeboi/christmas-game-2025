@@ -15,6 +15,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class AdminService {
   baseUrl = CONSTANTS.API_ROUTES.ADMIN.ROUTE;
+  gameStarted: boolean = false;
+
   private _websocketService: WebsocketService = inject(WebsocketService);
   private _snackbarService: SnackbarService = inject(SnackbarService);
   private _destroyRef: DestroyRef = inject(DestroyRef);
@@ -28,6 +30,17 @@ export class AdminService {
         }
       });
   }
+
+  handleMsg(method: string, data: any) {
+    switch (method) {
+      case CONSTANTS.API_ROUTES.ADMIN.TOAST:
+        this._snackbarService.openSnackbar(data.msg);
+        break;
+      case CONSTANTS.API_ROUTES.ADMIN.START_GAME:
+        this.gameStarted = true;
+        break;
+    }
+  }
   
   sendToast(msg: string): void {
     this._websocketService.sendMessage({
@@ -38,11 +51,10 @@ export class AdminService {
     });
   }
 
-  handleMsg(method: string, data: any) {
-    switch (method) {
-      case CONSTANTS.API_ROUTES.ADMIN.TOAST:
-        this._snackbarService.openSnackbar(data.msg);
-        break;
-    }
+  startGame(): void {
+    this._websocketService.sendMessage({
+      route: `${this.baseUrl}/${CONSTANTS.API_ROUTES.ADMIN.START_GAME}`,
+      data: {},
+    });
   }
 }

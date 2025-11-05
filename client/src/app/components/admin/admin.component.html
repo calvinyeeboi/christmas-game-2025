@@ -1,5 +1,10 @@
-<span>admin component</span>
-<div class="">
-  <input matInput type="password" [(ngModel)]="msg">
-  <button (click)="sendMsg()">Send</button>
-</div>
+
+<h2>Admin Dashboard</h2>
+<mat-form-field>
+  <mat-label>Toast message</mat-label>
+  <input matInput type="text" [(ngModel)]="msg">
+  <button matSuffix mat-flat-button [disabled]="!msg" (click)="sendMsg()">Send</button>
+</mat-form-field>
+<button matSuffix mat-flat-button [disabled]="adminService.gameStarted" (click)="startGame()">
+  {{startGameMsg}}
+</button>

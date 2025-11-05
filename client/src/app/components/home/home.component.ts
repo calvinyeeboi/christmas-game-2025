@@ -1,3 +1,4 @@
+// Libraries
 import { NgForOf, NgIf } from "@angular/common";
 import { Component, inject, OnInit } from "@angular/core";
 import { MatSelectModule } from "@angular/material/select";
@@ -5,7 +6,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 
 // Services
 import { PlayerService } from "../../services/player.service";
-import { MainService } from "../../services/main.service";
+import { AdminService } from "../../services/admin.service";
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,7 @@ import { MainService } from "../../services/main.service";
   imports: [NgIf, MatFormFieldModule, MatSelectModule, NgForOf],
 })
 export class HomeComponent implements OnInit {
-  mainService: MainService = inject(MainService);
+  adminService: AdminService = inject(AdminService);
   playerService: PlayerService = inject(PlayerService)
 
   ngOnInit(): void {
