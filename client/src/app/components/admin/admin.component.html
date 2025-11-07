@@ -1,10 +1,46 @@
 
 <h2>Admin Dashboard</h2>
+<h4>Send notification</h4>
 <mat-form-field>
   <mat-label>Toast message</mat-label>
   <input matInput type="text" [(ngModel)]="msg">
   <button matSuffix mat-flat-button [disabled]="!msg" (click)="sendMsg()">Send</button>
 </mat-form-field>
+<h4>Rooms</h4>
+<div class="rooms">
+  @for (floor of roomService.rooms() | keyvalue; track floor.key) {
+    <div class="rooms-item">
+      <h4>{{ floor.key }}</h4>
+      <div class="rooms-item-inner">
+        @for (room of floor.value | keyvalue; track room.key) {
+          <div class="rooms-item-inner-box">
+            <h6>{{ room.key }}</h6>
+            <label>Players:</label>
+            <ul>
+              @for (player of $any(room.value).players; track player) {
+                <li>{{ player.name }}</li>
+              } @empty {
+                <span>No players</span>
+              }
+            </ul>
+            <label>Items:</label>
+            <ul>
+              @for (item of $any(room.value).items; track item) {
+                <li>{{ item.name }}</li>
+              } @empty {
+                <span>No items</span>
+              }
+            </ul>
+          </div>
+        } @empty {
+          <span>No floors</span>
+        }
+      </div>
+    </div>
+  } @empty {
+    <span>No rooms</span>
+  }
+</div>
 <div class="flex-1"></div>
 <button matSuffix mat-flat-button [disabled]="adminService.gameStarted" (click)="startGame()">
   {{adminService.gameStarted ? 'It has begin' : 'Start Game'}}

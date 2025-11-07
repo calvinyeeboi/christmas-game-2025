@@ -1,12 +1,13 @@
 // Libraries
 import { NgForOf, NgIf } from "@angular/common";
-import { Component, inject, OnInit } from "@angular/core";
+import { Component, effect, inject } from "@angular/core";
 import { MatSelectModule } from "@angular/material/select";
 import { MatFormFieldModule } from "@angular/material/form-field";
 
 // Services
 import { PlayerService } from "../../services/player.service";
 import { AdminService } from "../../services/admin.service";
+import { WebsocketService } from "../../services/websocket.service";
 
 @Component({
   selector: 'app-home',
@@ -15,13 +16,16 @@ import { AdminService } from "../../services/admin.service";
   styleUrls: ['./home.component.scss'],
   imports: [NgIf, MatFormFieldModule, MatSelectModule, NgForOf],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
   adminService: AdminService = inject(AdminService);
-  playerService: PlayerService = inject(PlayerService)
+  playerService: PlayerService = inject(PlayerService);
+  websocketService: WebsocketService = inject(WebsocketService);
 
-  ngOnInit(): void {
-    setTimeout(() => {
-      this.playerService.getPlayers();
-    }, 500);
+  constructor() {
+    effect(() => {
+      if (this.websocketService.wsEstablished()) {
+        this.playerService.getPlayers();
+      }
+    })
   }
 }

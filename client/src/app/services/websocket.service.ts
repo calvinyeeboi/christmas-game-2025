@@ -1,6 +1,5 @@
 // Libraries
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Injectable, signal } from '@angular/core';
 import { ApiResponse } from '../models';
 
 @Injectable({
@@ -8,7 +7,8 @@ import { ApiResponse } from '../models';
 })
 export class WebsocketService {
   ws: any = undefined;
-  public wsMsgReceived$: Subject<ApiResponse> = new Subject<ApiResponse>();
+  public wsMsgReceived = signal({ route: '', method: '', data: {} });
+  public wsEstablished = signal(false);
 
   initialize(): void {
     this.ws = new WebSocket('ws://192.168.1.99:8081');
@@ -18,6 +18,7 @@ export class WebsocketService {
   initWs(): void {
     this.ws.onopen = () => {
       console.log('Connected to server');
+      this.wsEstablished.set(true);
     };
   
     this.ws.onmessage = (event: any) => {
@@ -40,8 +41,9 @@ export class WebsocketService {
         method,
         data: apiMsg.data,
       };
+      console.log('handleMessage');
       console.log(response);
-      this.wsMsgReceived$.next(response);
+      this.wsMsgReceived.set(response);
     } catch (error: any) {
       console.error(error);
     }

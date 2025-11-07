@@ -1,5 +1,5 @@
 // Libraries
-import { Component, inject, OnInit } from "@angular/core";
+import { Component, effect, inject } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
@@ -8,6 +8,9 @@ import { MatButtonModule } from "@angular/material/button";
 // Services
 import { AdminService } from "../../services/admin.service";
 import { MainService } from "../../services/main.service";
+import { RoomService } from "../../services/room.service";
+import { WebsocketService } from "../../services/websocket.service";
+import { KeyValuePipe } from "@angular/common";
 
 @Component({
   selector: 'app-admin',
@@ -20,15 +23,24 @@ import { MainService } from "../../services/main.service";
     MatInputModule,
     ReactiveFormsModule,
     MatButtonModule,
+    KeyValuePipe
   ],
 })
-export class AdminComponent implements OnInit {
-  msg: string = '';
-
+export class AdminComponent {
   public mainService: MainService = inject(MainService);
   public adminService: AdminService = inject(AdminService);
+  public roomService: RoomService = inject(RoomService);
+  public websocketService: WebsocketService = inject(WebsocketService);
 
-  ngOnInit(): void {}
+  msg: string = '';
+
+  constructor() {
+    effect(() => {
+      if (this.websocketService.wsEstablished()) {
+        this.roomService.getRooms();
+      }
+    });
+  }
 
   sendMsg(): void {
     this.adminService.sendToast(this.msg);

@@ -1,9 +1,9 @@
 // Libraries
-import { effect, inject, Injectable } from '@angular/core';
+import { effect, inject, Injectable, signal } from '@angular/core';
 
 // Utils
 import CONSTANTS from '../../../../server/constants';
-import { ApiResponse, Player } from '../models';
+import { ApiResponse } from '../models';
 
 // Services
 import { WebsocketService } from './websocket.service';
@@ -11,9 +11,9 @@ import { WebsocketService } from './websocket.service';
 @Injectable({
   providedIn: 'root' // Makes the service a singleton available throughout the application
 })
-export class PlayerService {
-  baseUrl = CONSTANTS.API_ROUTES.PLAYER.ROUTE;
-  public players: Player[] = [];
+export class RoomService {
+  baseUrl = CONSTANTS.API_ROUTES.ROOM.ROUTE;
+  public rooms = signal({});
 
   private _websocketService: WebsocketService = inject(WebsocketService);
 
@@ -26,17 +26,17 @@ export class PlayerService {
     });
   }
   
-  getPlayers(): void {
+  getRooms(): void {
     this._websocketService.sendMessage({
-      route: `${this.baseUrl}/${CONSTANTS.API_ROUTES.PLAYER.GET_PLAYERS}`,
+      route: `${this.baseUrl}/${CONSTANTS.API_ROUTES.ROOM.GET_ROOMS}`,
     });
   }
 
   handleMsg(method: string, data: any) {
     switch (method) {
-      case CONSTANTS.API_ROUTES.PLAYER.GET_PLAYERS:
-        if (data.players?.length) {
-          this.players = data.players;
+      case CONSTANTS.API_ROUTES.ROOM.GET_ROOMS:
+        if (data.rooms) {
+          this.rooms.set(data.rooms);
         }
         break;
     }
