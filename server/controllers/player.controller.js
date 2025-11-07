@@ -1,24 +1,26 @@
 import CONSTANTS from "../constants.js";
 
 export default class PlayerController {
-  players = {
-    1: {
-        name: 'Calvin',
-        inventory: {},
-    },
-    2: {
-        name: 'Helen',
-        inventory: {},
-    },
-  };
+  constructor(globals) {
+    this.globals = globals;
+    this.globals.players = {
+      1: {
+          id: 1,
+          name: 'Calvin',
+          inventory: {},
+      },
+      2: {
+          id: 2,
+          name: 'Helen',
+          inventory: {},
+      },
+    };
+  }
 
   getPlayersAsArray() {
     let returnArr = [];
-    for (const key in this.players) {
-      returnArr.push({
-        id: key,
-        ...this.players[key],
-      })
+    for (const key in this.globals.players) {
+      returnArr.push(this.globals.players[key]);
     }
     return returnArr;
   }
