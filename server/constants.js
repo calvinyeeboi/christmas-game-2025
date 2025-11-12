@@ -14,7 +14,11 @@ const CONSTANTS = {
     ROOM: {
       ROUTE: 'room',
       GET_ROOMS: 'getRooms',
+      GET_ROOM: 'getRoom',
     },
+    ACTION: {
+      ROUTE: 'action',
+    }
   },
   ITEMS: {
     BLUE_CHARM: {
@@ -23,6 +27,23 @@ const CONSTANTS = {
     RED_CHARM: {
       NAME: 'Red Charm',
     },
+  },
+  ACTIONS: {
+    DINING_ROOM: {
+      KEY: 'DINING_ROOM',
+      CHECK_TABLE: {
+        KEY: 'checkDiningRoomTable',
+        LABEL: 'Check table',
+      },
+      CHECK_PLATE: {
+        KEY: 'checkDiningRoomPlate',
+        LABEL: 'Check plate',
+      },
+      EAT_FOOD: {
+        KEY: 'eatDiningRoomFood',
+        LABEL: 'Eat that mouldy chicken',
+      },
+    }
   }
 };
 export default CONSTANTS;

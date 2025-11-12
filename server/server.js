@@ -3,12 +3,14 @@ import CONSTANTS from './constants.js';
 import PlayerController from './controllers/player.controller.js';
 import RoomController from './controllers/room.controller.js';
 import ItemController from './controllers/item.controller.js';
+import ActionController from './controllers/action.controller.js';
 
 let globals = {};
 
 const playerController = new PlayerController(globals);
 const roomController = new RoomController(globals);
 const itemController = new ItemController(globals);
+const actionController = new ActionController(globals);
 const server = new WebSocketServer({ 
   port: 8081 
 });
@@ -20,13 +22,15 @@ const handleMessage = (message, socket) => {
   let response = message;
   switch (route) {
     case CONSTANTS.API_ROUTES.ADMIN.ROUTE:
-      sendToClients(message);
       break;
     case CONSTANTS.API_ROUTES.PLAYER.ROUTE:
       response = playerController.getResponse(response);
       break;
     case CONSTANTS.API_ROUTES.ROOM.ROUTE:
       response = roomController.getResponse(response);
+      break;
+    case CONSTANTS.API_ROUTES.ACTION.ROUTE:
+      response = actionController.getResponse(response);
       break;
   }
   sendToClients(response);

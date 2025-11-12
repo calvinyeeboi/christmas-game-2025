@@ -7,12 +7,12 @@ export default class ItemController {
       1: {
           id: 1,
           name: CONSTANTS.ITEMS.BLUE_CHARM.NAME,
-          player: null,
+          playerId: 1,
       },
       2: {
           id: 2,
           name: CONSTANTS.ITEMS.RED_CHARM.NAME,
-          player: null,
+          playerId: null,
       },
     };
   }
