@@ -1,0 +1,7 @@
+<mat-nav-list>
+  @for (action of $any(roomService.currentRoom())?.actions; track action) {
+    <li mat-list-item (click)="btnClick(action.key)">
+      {{ action.label }}
+    </li>
+  }
+</mat-nav-list>

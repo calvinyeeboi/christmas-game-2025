@@ -14,6 +14,7 @@ import { WebsocketService } from './websocket.service';
 export class RoomService {
   baseUrl = CONSTANTS.API_ROUTES.ROOM.ROUTE;
   public rooms = signal({});
+  public currentRoom = signal({});
 
   private _websocketService: WebsocketService = inject(WebsocketService);
 
@@ -32,11 +33,22 @@ export class RoomService {
     });
   }
 
+  getRoom(id: string): void {
+    this._websocketService.sendMessage({
+      route: `${this.baseUrl}/${CONSTANTS.API_ROUTES.ROOM.GET_ROOM}/${id}`,
+    });
+  }
+
   handleMsg(method: string, data: any) {
     switch (method) {
       case CONSTANTS.API_ROUTES.ROOM.GET_ROOMS:
         if (data.rooms) {
           this.rooms.set(data.rooms);
+        }
+        break;
+      case CONSTANTS.API_ROUTES.ROOM.GET_ROOM:
+        if (data.room) {
+          this.currentRoom.set(data.room);
         }
         break;
     }

@@ -1,0 +1,12 @@
+@import "colors";
+
+:host {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+  padding: 1rem;
+  border: 2px solid $green-color;
+  border-radius: 1rem;
+  flex: 1;
+  overflow: auto;
+}

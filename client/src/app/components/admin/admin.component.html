@@ -26,7 +26,7 @@
             <label>Items:</label>
             <ul>
               @for (item of $any(room.value).items; track item) {
-                <li>{{ item.name }}</li>
+                <li>{{ item.name }} {{ item.player?.name ? `(${item.player.name})` : ''}}</li>
               } @empty {
                 <span>No items</span>
               }
