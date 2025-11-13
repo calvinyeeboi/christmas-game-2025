@@ -6,18 +6,18 @@ const CONSTANTS = {
       START_GAME: 'startGame',
     },
     PLAYER: {
-      ROUTE: 'player',
+      ROUTE: 'players',
       LOGIN: 'login',
       ROOM: 'room',
       GET_PLAYERS: 'getPlayers',
     },
     ROOM: {
-      ROUTE: 'room',
+      ROUTE: 'rooms',
       GET_ROOMS: 'getRooms',
       GET_ROOM: 'getRoom',
     },
     ACTION: {
-      ROUTE: 'action',
+      ROUTE: 'actions',
     }
   },
   ITEMS: {
@@ -44,6 +44,14 @@ const CONSTANTS = {
         LABEL: 'Eat that mouldy chicken',
       },
     }
+  },
+  ENV: {
+    APP: {
+      PORT: 3000,
+    },
+    WS: {
+      PORT: 8081,
+    },
   }
 };
 export default CONSTANTS;
