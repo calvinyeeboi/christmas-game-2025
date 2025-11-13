@@ -12,7 +12,6 @@ export class DataService {
 
   get({ url = '', params = {}}): Observable<any> {
     params = this.getParams(params);
-    console.log('get');
     return this.http.get(`${this.baseUrl}/${url}`, { params });
   }
 

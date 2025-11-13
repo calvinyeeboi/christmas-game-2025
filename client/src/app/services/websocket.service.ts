@@ -1,5 +1,5 @@
 // Libraries
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, WritableSignal } from '@angular/core';
 import { ApiResponse } from '../models';
 
 @Injectable({
@@ -7,8 +7,8 @@ import { ApiResponse } from '../models';
 })
 export class WebsocketService {
   ws: any = undefined;
-  public wsMsgReceived = signal({ route: '', method: '', data: {} });
-  public wsEstablished = signal(false);
+  public wsMsgReceived: WritableSignal<ApiResponse> = signal({ route: '', method: '', data: {} });
+  public wsEstablished: WritableSignal<boolean> = signal(false);
 
   initialize(): void {
     this.ws = new WebSocket('ws://192.168.1.99:8081');

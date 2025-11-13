@@ -13,7 +13,7 @@ import { DataService } from './data.service';
   providedIn: 'root' // Makes the service a singleton available throughout the application
 })
 export class PlayerService {
-  baseUrl = CONSTANTS.API_ROUTES.PLAYER.ROUTE;
+  baseUrl = CONSTANTS.API_ROUTES.PLAYERS.ROUTE;
   public players: Player[] = [];
 
   private _websocketService: WebsocketService = inject(WebsocketService);
@@ -30,13 +30,13 @@ export class PlayerService {
   
   getPlayers(): void {
     this._websocketService.sendMessage({
-      route: `${this.baseUrl}/${CONSTANTS.API_ROUTES.PLAYER.GET_PLAYERS}`,
+      route: `${this.baseUrl}/${CONSTANTS.API_ROUTES.PLAYERS.GET_PLAYERS}`,
     });
   }
 
   handleMsg(method: string, data: any) {
     switch (method) {
-      case CONSTANTS.API_ROUTES.PLAYER.GET_PLAYERS:
+      case CONSTANTS.API_ROUTES.PLAYERS.GET_PLAYERS:
         if (data.players?.length) {
           this.players = data.players;
         }

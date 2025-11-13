@@ -12,7 +12,7 @@
     <div class="rooms-item">
       <h4>{{ floor.key }}</h4>
       <div class="rooms-item-inner">
-        @for (room of floor.value | keyvalue; track room.key) {
+        @for (room of $any(floor).value | keyvalue; track room.key) {
           <div class="rooms-item-inner-box">
             <h6>{{ room.key }}</h6>
             <label>Players:</label>

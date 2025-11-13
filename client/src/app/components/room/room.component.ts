@@ -40,12 +40,13 @@ export class RoomComponent {
 
   msg: string = '';
   currentRoom: any = {};
+  roomId: string = '';
 
   constructor() {
     effect(() => {
       if (this.websocketService.wsEstablished()) {
-        const roomId = this._route.snapshot.params['id'];
-        this.roomService.getRoom(roomId);
+        this.roomId = this._route.snapshot.params['id'];
+        this.roomService.getRoom(this.roomId);
       }
     });
   }

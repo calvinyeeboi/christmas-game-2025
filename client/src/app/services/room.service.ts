@@ -1,9 +1,9 @@
 // Libraries
-import { effect, inject, Injectable, signal } from '@angular/core';
+import { effect, inject, Injectable, signal, WritableSignal } from '@angular/core';
 
 // Utils
 import CONSTANTS from '../../../../server/constants';
-import { ApiResponse } from '../models';
+import { ApiResponse, Room, Rooms } from '../models';
 
 // Services
 import { WebsocketService } from './websocket.service';
@@ -13,9 +13,9 @@ import { DataService } from './data.service';
   providedIn: 'root' // Makes the service a singleton available throughout the application
 })
 export class RoomService {
-  baseUrl = CONSTANTS.API_ROUTES.ROOM.ROUTE;
-  public rooms = signal({});
-  public currentRoom = signal({});
+  baseUrl = CONSTANTS.API_ROUTES.ROOMS.ROUTE;
+  public rooms: WritableSignal<any> = signal({});
+  public currentRoom: WritableSignal<Room> = signal({});
 
   private _websocketService: WebsocketService = inject(WebsocketService);
   private _dataService: DataService = inject(DataService);
@@ -24,7 +24,7 @@ export class RoomService {
     effect(() => {
       const response: ApiResponse = this._websocketService.wsMsgReceived();
       if (response.route === this.baseUrl) {
-        this.handleMsg(response.method, response.data);
+        this.handleWsMsg(response.method, response.data);
       }
     });
   }
@@ -45,14 +45,14 @@ export class RoomService {
     });
   }
 
-  handleMsg(method: string, data: any) {
+  handleWsMsg(method: string, data: any) {
     switch (method) {
-      case CONSTANTS.API_ROUTES.ROOM.GET_ROOMS:
+      case CONSTANTS.API_ROUTES.ROOMS.GET_ROOMS:
         if (data.rooms) {
           this.rooms.set(data.rooms);
         }
         break;
-      case CONSTANTS.API_ROUTES.ROOM.GET_ROOM:
+      case CONSTANTS.API_ROUTES.ROOMS.GET_ROOM:
         if (data.room) {
           this.currentRoom.set(data.room);
         }

@@ -17,3 +17,25 @@ export interface Player {
 export interface Inventory {
   [key: string]: any;
 }
+
+export interface Item {
+  [key: string]: any;
+}
+
+export interface Action {
+  [key: string]: any;
+}
+
+export interface Rooms {
+  [key: string]: {
+    [key: string]: Room;
+  };
+}
+
+export interface Room {
+  id?: number;
+  name?: string;
+  players?: Player[];
+  items?: Item[];
+  actions?: Action[];
+}

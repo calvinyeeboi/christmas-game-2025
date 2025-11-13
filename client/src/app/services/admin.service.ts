@@ -8,6 +8,7 @@ import { ApiResponse } from '../models';
 // Services
 import { WebsocketService } from './websocket.service';
 import { SnackbarService } from './snackbar.service';
+import { DataService } from './data.service';
 
 @Injectable({
   providedIn: 'root' // Makes the service a singleton available throughout the application
@@ -18,6 +19,7 @@ export class AdminService {
 
   private _websocketService: WebsocketService = inject(WebsocketService);
   private _snackbarService: SnackbarService = inject(SnackbarService);
+  private _dataService: DataService = inject(DataService);
 
   constructor() {
     effect(() => {
@@ -39,13 +41,11 @@ export class AdminService {
     }
   }
   
-  sendToast(msg: string): void {
-    this._websocketService.sendMessage({
-      route: `${this.baseUrl}/${CONSTANTS.API_ROUTES.ADMIN.TOAST}`,
-      data: {
-        msg,
-      }
-    });
+  sendToast(msg: string): any {
+    return this._dataService.post({
+      url: `${this.baseUrl}/${CONSTANTS.API_ROUTES.ADMIN.TOAST}`,
+      body: { msg },
+    }).subscribe();
   }
 
   startGame(): void {
