@@ -7,6 +7,7 @@ import { ApiResponse } from '../models';
 
 // Services
 import { WebsocketService } from './websocket.service';
+import { DataService } from './data.service';
 
 @Injectable({
   providedIn: 'root' // Makes the service a singleton available throughout the application
@@ -17,6 +18,7 @@ export class RoomService {
   public currentRoom = signal({});
 
   private _websocketService: WebsocketService = inject(WebsocketService);
+  private _dataService: DataService = inject(DataService);
 
   constructor() {
     effect(() => {
@@ -27,15 +29,19 @@ export class RoomService {
     });
   }
   
-  getRooms(): void {
-    this._websocketService.sendMessage({
-      route: `${this.baseUrl}/${CONSTANTS.API_ROUTES.ROOM.GET_ROOMS}`,
+  getRooms(): any {
+    return this._dataService.get({ url: this.baseUrl }).subscribe((response: any) => {
+      if (response.rooms) {
+        this.rooms.set(response.rooms);
+      }
     });
   }
 
-  getRoom(id: string): void {
-    this._websocketService.sendMessage({
-      route: `${this.baseUrl}/${CONSTANTS.API_ROUTES.ROOM.GET_ROOM}/${id}`,
+  getRoom(id: string): any {
+    return this._dataService.get({ url: `${this.baseUrl}/${id}` }).subscribe((response: any) => {
+      if (response.room) {
+        this.currentRoom.set(response.room);
+      }
     });
   }
 

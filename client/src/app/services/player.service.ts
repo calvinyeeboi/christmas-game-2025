@@ -7,6 +7,7 @@ import { ApiResponse, Player } from '../models';
 
 // Services
 import { WebsocketService } from './websocket.service';
+import { DataService } from './data.service';
 
 @Injectable({
   providedIn: 'root' // Makes the service a singleton available throughout the application
@@ -16,6 +17,7 @@ export class PlayerService {
   public players: Player[] = [];
 
   private _websocketService: WebsocketService = inject(WebsocketService);
+  private _dataService: DataService = inject(DataService);
 
   constructor() {
     effect(() => {
