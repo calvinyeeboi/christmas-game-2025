@@ -5,18 +5,18 @@ const CONSTANTS = {
       TOAST: 'toast',
       START_GAME: 'startGame',
     },
-    PLAYER: {
+    PLAYERS: {
       ROUTE: 'players',
       LOGIN: 'login',
       ROOM: 'room',
       GET_PLAYERS: 'getPlayers',
     },
-    ROOM: {
+    ROOMS: {
       ROUTE: 'rooms',
       GET_ROOMS: 'getRooms',
       GET_ROOM: 'getRoom',
     },
-    ACTION: {
+    ACTIONS: {
       ROUTE: 'actions',
     }
   },

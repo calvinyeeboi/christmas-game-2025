@@ -21,7 +21,7 @@ export default class ItemController {
     const splitRoute = request.route.split('/');
     const method = splitRoute[1];
     switch (method) {
-      case CONSTANTS.API_ROUTES.PLAYER.GET_PLAYERS:
+      case CONSTANTS.API_ROUTES.PLAYERS.GET_PLAYERS:
         break;
     }
     return request;

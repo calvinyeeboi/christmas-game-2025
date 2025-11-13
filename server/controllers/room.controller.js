@@ -8,13 +8,14 @@ export default class RoomController {
       level_1: {
         dining_room: {
           id: 1,
-          players: [1, 2],
+          name: 'Dining Room',
+          players: [1],
           items: [1],
           actions: getActions(CONSTANTS.ACTIONS.DINING_ROOM.KEY),
         },
         bathroom: {
           id: 2,
-          players: [1],
+          players: [2],
           items: [2]
         },
         foyer: {
@@ -26,22 +27,22 @@ export default class RoomController {
       level_2: {
         master_bedroom: {
           id: 4,
-          players: [1],
-          items: [1],
+          players: [],
+          items: [],
         },
         guest_bedroom: {
           id: 5,
-          players: [2],
+          players: [],
           items: [],
         },
         childrens_bedroom: {
           id: 6,
-          players: [2, 2],
-          items: [2],
+          players: [],
+          items: [],
         },
         childrens_washroom: {
           id: 7,
-          players: [2, 1],
+          players: [],
           items: [],
         },
       }
@@ -97,11 +98,11 @@ export default class RoomController {
       id = parseInt(id);
     }
     switch (method) {
-      case CONSTANTS.API_ROUTES.ROOM.GET_ROOMS:
+      case CONSTANTS.API_ROUTES.ROOMS.GET_ROOMS:
         request.data.rooms = this.getRooms();
         request.data.players = this.globals.players;
         break;
-      case CONSTANTS.API_ROUTES.ROOM.GET_ROOM:
+      case CONSTANTS.API_ROUTES.ROOMS.GET_ROOM:
         request.data.room = this.getRoom(id);
         break;
     }

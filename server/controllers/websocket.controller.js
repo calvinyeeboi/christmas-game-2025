@@ -42,26 +42,33 @@ export default class WebsocketController {
     const splitRoute = message.route.split('/');
     const route = splitRoute[0];
     let response = message;
-    let sendToRequestor = true;
+    let dontSendToRequestor = false;
     switch (route) {
       case CONSTANTS.API_ROUTES.ADMIN.ROUTE:
         break;
-      case CONSTANTS.API_ROUTES.PLAYER.ROUTE:
+      case CONSTANTS.API_ROUTES.PLAYERS.ROUTE:
         response = this.globals.playerController.getResponse(response);
         break;
-      case CONSTANTS.API_ROUTES.ROOM.ROUTE:
+      case CONSTANTS.API_ROUTES.ROOMS.ROUTE:
         response = this.globals.roomController.getResponse(response);
         break;
-      case CONSTANTS.API_ROUTES.ACTION.ROUTE:
+      case CONSTANTS.API_ROUTES.ACTIONS.ROUTE:
         response = this.globals.actionController.getResponse(response);
         break;
     }
-    this.sendToClients(response, socket, sendToRequestor);
+    this.sendToClients(response, socket, dontSendToRequestor);
   }
 
-  sendToClients(response, socket, sendToRequestor) {
+  formatResponse({ route = '', data = {}}) {
+    return {
+      route,
+      data,
+    };
+  }
+
+  sendToClients(response, socket, dontSendToRequestor) {
     this.clients.forEach((client) => {
-      if (!sendToRequestor && client === socket) {
+      if (dontSendToRequestor && client === socket) {
         return;
       }
       if (client.readyState === WebSocket.OPEN) {

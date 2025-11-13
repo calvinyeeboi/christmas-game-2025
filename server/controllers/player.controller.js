@@ -29,7 +29,7 @@ export default class PlayerController {
     const splitRoute = request.route.split('/');
     const method = splitRoute[1];
     switch (method) {
-      case CONSTANTS.API_ROUTES.PLAYER.GET_PLAYERS:
+      case CONSTANTS.API_ROUTES.PLAYERS.GET_PLAYERS:
         request.data.players = this.getPlayersAsArray();
         break;
     }
