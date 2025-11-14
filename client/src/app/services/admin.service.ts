@@ -15,7 +15,6 @@ import { DataService } from './data.service';
 })
 export class AdminService {
   baseUrl = CONSTANTS.API_ROUTES.ADMIN.ROUTE;
-  gameStarted: boolean = false;
 
   private _websocketService: WebsocketService = inject(WebsocketService);
   private _snackbarService: SnackbarService = inject(SnackbarService);
@@ -35,9 +34,6 @@ export class AdminService {
       case CONSTANTS.API_ROUTES.ADMIN.TOAST:
         this._snackbarService.openSnackbar(data.msg);
         break;
-      case CONSTANTS.API_ROUTES.ADMIN.START_GAME:
-        this.gameStarted = true;
-        break;
     }
   }
   
@@ -48,10 +44,9 @@ export class AdminService {
     }).subscribe();
   }
 
-  startGame(): void {
-    this._websocketService.sendMessage({
-      route: `${this.baseUrl}/${CONSTANTS.API_ROUTES.ADMIN.START_GAME}`,
-      data: {},
-    });
+  startGame(): any {
+    return this._dataService.post({
+      url: `${this.baseUrl}/${CONSTANTS.API_ROUTES.ADMIN.START_GAME}`
+    }).subscribe();
   }
 }

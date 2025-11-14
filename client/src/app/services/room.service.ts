@@ -14,7 +14,7 @@ import { DataService } from './data.service';
 })
 export class RoomService {
   baseUrl = CONSTANTS.API_ROUTES.ROOMS.ROUTE;
-  public rooms: WritableSignal<any> = signal({});
+  public rooms: WritableSignal<Rooms | any> = signal({});
   public currentRoom: WritableSignal<Room> = signal({});
 
   private _websocketService: WebsocketService = inject(WebsocketService);

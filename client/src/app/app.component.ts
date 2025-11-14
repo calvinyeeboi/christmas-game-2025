@@ -1,5 +1,5 @@
 // Libraries
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 // Services
@@ -9,6 +9,7 @@ import { MainService } from './services/main.service';
 import { PlayerService } from './services/player.service';
 import { RoomService } from './services/room.service';
 import { DataService } from './services/data.service';
+import { GameService } from './services/game.service';
 
 @Component({
   selector: 'app-root',
@@ -25,6 +26,15 @@ export class AppComponent {
   private _mainService: MainService = inject(MainService);
   private _playerService: PlayerService = inject(PlayerService);
   private _roomService: RoomService = inject(RoomService);
+  private _gameService: GameService = inject(GameService);
+
+  constructor() {
+    effect(() => {
+      if (this._websocketService.wsEstablished()) {
+        this._gameService.getStatus();
+      }
+    });
+  }
 
   ngOnInit(): void {
     this._websocketService.initialize();

@@ -42,6 +42,6 @@
   }
 </div>
 <div class="flex-1"></div>
-<button matSuffix mat-flat-button [disabled]="adminService.gameStarted" (click)="startGame()">
-  {{adminService.gameStarted ? 'It has begin' : 'Start Game'}}
+<button matSuffix mat-flat-button [disabled]="gameService.status().started" (click)="startGame()">
+  {{gameService.status().started ? 'It has begin' : 'Start Game'}}
 </button>

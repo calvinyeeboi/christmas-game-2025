@@ -11,6 +11,7 @@ import { MainService } from "../../services/main.service";
 import { RoomService } from "../../services/room.service";
 import { WebsocketService } from "../../services/websocket.service";
 import { KeyValuePipe } from "@angular/common";
+import { GameService } from "../../services/game.service";
 
 @Component({
   selector: 'app-admin',
@@ -27,10 +28,11 @@ import { KeyValuePipe } from "@angular/common";
   ],
 })
 export class AdminComponent {
-  public mainService: MainService = inject(MainService);
-  public adminService: AdminService = inject(AdminService);
-  public roomService: RoomService = inject(RoomService);
-  public websocketService: WebsocketService = inject(WebsocketService);
+  mainService: MainService = inject(MainService);
+  adminService: AdminService = inject(AdminService);
+  roomService: RoomService = inject(RoomService);
+  gameService: GameService = inject(GameService);
+  websocketService: WebsocketService = inject(WebsocketService);
 
   msg: string = '';
 

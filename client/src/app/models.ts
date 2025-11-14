@@ -32,6 +32,10 @@ export interface Rooms {
   };
 }
 
+export interface GameStatus {
+  started: boolean;
+}
+
 export interface Room {
   id?: number;
   name?: string;

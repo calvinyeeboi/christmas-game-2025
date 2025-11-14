@@ -33,10 +33,10 @@ export class RoomComponent {
   private _route = inject(ActivatedRoute);
   private _bottomSheet = inject(MatBottomSheet);
 
-  public mainService: MainService = inject(MainService);
-  public adminService: AdminService = inject(AdminService);
-  public roomService: RoomService = inject(RoomService);
-  public websocketService: WebsocketService = inject(WebsocketService);
+  mainService: MainService = inject(MainService);
+  adminService: AdminService = inject(AdminService);
+  roomService: RoomService = inject(RoomService);
+  websocketService: WebsocketService = inject(WebsocketService);
 
   msg: string = '';
   currentRoom: any = {};

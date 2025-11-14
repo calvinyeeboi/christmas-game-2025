@@ -3,7 +3,7 @@ import { effect, inject, Injectable, signal, WritableSignal } from '@angular/cor
 
 // Utils
 import CONSTANTS from '../../../../server/constants';
-import { ApiResponse, Player } from '../models';
+import { ApiResponse, GameStatus } from '../models';
 
 // Services
 import { WebsocketService } from './websocket.service';
@@ -12,9 +12,9 @@ import { DataService } from './data.service';
 @Injectable({
   providedIn: 'root' // Makes the service a singleton available throughout the application
 })
-export class PlayerService {
-  baseUrl = CONSTANTS.API_ROUTES.PLAYERS.ROUTE;
-  public players: WritableSignal<Player[]> = signal([]);
+export class GameService {
+  baseUrl = CONSTANTS.API_ROUTES.GAME.ROUTE;
+  public status: WritableSignal<GameStatus> = signal({ started: false });
 
   private _websocketService: WebsocketService = inject(WebsocketService);
   private _dataService: DataService = inject(DataService);
@@ -23,25 +23,26 @@ export class PlayerService {
     effect(() => {
       const response: ApiResponse = this._websocketService.wsMsgReceived();
       if (response.route === this.baseUrl) {
-        this.handleMsg(response.method, response.data);
+        this.handleWsMsg(response.method, response.data);
       }
     });
   }
   
-  getPlayers(): any {
-    return this._dataService.get({ url: this.baseUrl }).subscribe((response: any) => {
-      if (response.players) {
-        this.players.set(response.players);
+  getStatus(): any {
+    return this._dataService.get({ url: `${this.baseUrl}/${CONSTANTS.API_ROUTES.GAME.STATUS}` }).subscribe((response: any) => {
+      if (response.status) {
+        this.status.set(response.status);
       }
     });
   }
 
-  handleMsg(method: string, data: any) {
+  handleWsMsg(method: string, data: any) {
     switch (method) {
-      case CONSTANTS.API_ROUTES.PLAYERS.GET_PLAYERS:
-        if (data.players?.length) {
-          this.players.set(data.players);
-        }
+      case CONSTANTS.API_ROUTES.GAME.START:
+        this.status.update(currentStatus => ({
+          ...currentStatus,
+          started: true,
+        }));
         break;
     }
   }

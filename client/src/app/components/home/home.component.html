@@ -1,11 +1,11 @@
-<ng-container *ngIf="!adminService.gameStarted; else loginTemplate">
+<ng-container *ngIf="!gameService.status().started; else loginTemplate">
   <span>Game has not begun yet...</span>
 </ng-container>
 <ng-template #loginTemplate>
   <mat-form-field>
     <mat-label>Pick your player!</mat-label>
     <mat-select>
-      <mat-option *ngFor="let player of playerService.players" [value]="player.id">{{player.name}}</mat-option>
+      <mat-option *ngFor="let player of playerService.players()" [value]="player.id">{{player.name}}</mat-option>
     </mat-select>
   </mat-form-field>
 </ng-template>
