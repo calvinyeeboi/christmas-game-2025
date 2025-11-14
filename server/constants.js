@@ -1,5 +1,10 @@
 const CONSTANTS = {
   API_ROUTES: {
+    GAME: {
+      ROUTE: 'game',
+      STATUS: 'status',
+      START: 'start',
+    },
     ADMIN: {
       ROUTE: 'admin',
       TOAST: 'toast',
@@ -18,7 +23,7 @@ const CONSTANTS = {
     },
     ACTIONS: {
       ROUTE: 'actions',
-    }
+    },
   },
   ITEMS: {
     BLUE_CHARM: {

@@ -16,4 +16,13 @@ export default (app) => {
     globals.websocketController.sendToClients(response);
     return res.send(true);
   });
+
+  route.post(`/${CONSTANTS.API_ROUTES.ADMIN.START_GAME}`, (req, res) => {
+    const response = globals.websocketController.formatResponse({
+      route: `${CONSTANTS.API_ROUTES.GAME.ROUTE}/${CONSTANTS.API_ROUTES.GAME.START}`,
+    });
+    globals.game.started = true;
+    globals.websocketController.sendToClients(response);
+    return res.send(true);
+  });
 };
