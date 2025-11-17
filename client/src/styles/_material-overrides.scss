@@ -8,4 +8,10 @@
     filled-disabled-label-text-color: $disabled-color,
     filled-container-shape: 0.5rem,
   ));
+
+  .cdk-overlay-pane {
+    .mat-mdc-select-panel {
+      background-color: #ffffff;
+    }
+  }
 }

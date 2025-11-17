@@ -1,4 +1,5 @@
 import CONSTANTS from "../constants.js";
+import { clone } from "../utils.js";
 
 export default class PlayerController {
   constructor(globals) {
@@ -8,21 +9,34 @@ export default class PlayerController {
           id: 1,
           name: 'Calvin',
           inventory: {},
+          password: 'testing123',
       },
       2: {
           id: 2,
           name: 'Helen',
           inventory: {},
+          password: 'Testing123!',
       },
     };
   }
 
   getPlayersAsArray() {
     let returnArr = [];
-    for (const key in this.globals.players) {
-      returnArr.push(this.globals.players[key]);
+    let clonedPlayers = clone(this.globals.players);
+    for (const key in clonedPlayers) {
+      delete clonedPlayers[key]['password'];
+      returnArr.push(clonedPlayers[key]);
     }
     return returnArr;
+  }
+
+  getPlayerByIdAndPassword(id, password) {
+    let clonedPlayers = clone(this.globals.players);
+    if (clonedPlayers[id] && clonedPlayers[id].password === password) {
+      delete clonedPlayers[id].password;
+      return clonedPlayers[id];
+    }
+    return null;
   }
 
   getResponse(request) {

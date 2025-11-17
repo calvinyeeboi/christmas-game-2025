@@ -1,6 +1,6 @@
 let globals = {
   game: {
-    started: false,
+    started: true,
   },
 };
 export default globals;

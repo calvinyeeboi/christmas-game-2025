@@ -9,4 +9,9 @@ export default (app) => {
   route.get('', (req, res) => {
     return res.json({ players: globals.playerController.getPlayersAsArray() });
   });
+
+  route.post(`/${CONSTANTS.API_ROUTES.PLAYERS.LOGIN}`, (req, res) => {
+    const { id, password } = req.body;
+    return res.json({ player: globals.playerController.getPlayerByIdAndPassword(id, password) });
+  });
 };

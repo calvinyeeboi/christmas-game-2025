@@ -1,11 +1,20 @@
-<ng-container *ngIf="!gameService.status().started; else loginTemplate">
+@if (!gameService.status().started) {
   <span>Game has not begun yet...</span>
-</ng-container>
-<ng-template #loginTemplate>
+} @else if (!playerService.currentPlayer().id) {
   <mat-form-field>
     <mat-label>Pick your player!</mat-label>
-    <mat-select>
+    <mat-select [(ngModel)]="playerId">
       <mat-option *ngFor="let player of playerService.players()" [value]="player.id">{{player.name}}</mat-option>
     </mat-select>
   </mat-form-field>
-</ng-template>
+  <mat-form-field>
+    <mat-label>Password</mat-label>
+    <input type="password" matInput [(ngModel)]="password">
+  </mat-form-field>
+  <button matSuffix mat-flat-button [disabled]="!(playerId && password)" (click)="login()">
+    Login
+  </button>
+} @else {
+  <span>Logged in</span>
+  <span>{{ playerService.currentPlayer().name }}</span>
+}
