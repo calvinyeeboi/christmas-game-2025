@@ -10,8 +10,13 @@
   flex: 1;
   overflow: auto;
 
-  h2 {
-    margin-top: 0.5rem;
+  .header-container {
+    display: flex;
+    align-items: center;
+
+    > h2 {
+      margin: 0;
+    }
   }
 
   .rooms {

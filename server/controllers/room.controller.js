@@ -5,45 +5,58 @@ export default class RoomController {
   constructor(globals) {
     this.globals = globals;
     this.globals.rooms = {
-      level_1: {
-        dining_room: {
+      [CONSTANTS.FLOORS.LEVEL_1.KEY]: {
+        [CONSTANTS.FLOORS.LEVEL_1.ROOMS.DINING_ROOM.KEY]: {
           id: 1,
-          name: 'Dining Room',
+          name: CONSTANTS.FLOORS.LEVEL_1.ROOMS.DINING_ROOM.NAME,
           players: [1],
           items: [1],
-          actions: getActions(CONSTANTS.ACTIONS.DINING_ROOM.KEY),
+          actions: getActions(CONSTANTS.FLOORS.LEVEL_1.ROOMS.DINING_ROOM.ACTIONS),
+          limit: 1,
         },
-        bathroom: {
+        [CONSTANTS.FLOORS.LEVEL_1.ROOMS.BATHROOM.KEY]: {
           id: 2,
+          name: CONSTANTS.FLOORS.LEVEL_1.ROOMS.BATHROOM.NAME,
           players: [2],
-          items: [2]
+          items: [2],
+          limit: 1,
         },
-        foyer: {
+        [CONSTANTS.FLOORS.LEVEL_1.ROOMS.FOYER.KEY]: {
           id: 3,
+          name: CONSTANTS.FLOORS.LEVEL_1.ROOMS.FOYER.NAME,
           players: [],
           items: [],
+          limit: 1,
         },
       },
-      level_2: {
-        master_bedroom: {
+      [CONSTANTS.FLOORS.LEVEL_2.KEY]: {
+        [CONSTANTS.FLOORS.LEVEL_2.ROOMS.MASTER_BEDROOM.KEY]: {
           id: 4,
+          name: CONSTANTS.FLOORS.LEVEL_2.ROOMS.MASTER_BEDROOM.NAME,
           players: [],
           items: [],
+          limit: 1,
         },
-        guest_bedroom: {
+        [CONSTANTS.FLOORS.LEVEL_2.ROOMS.GUEST_BEDROOM.KEY]: {
           id: 5,
+          name: CONSTANTS.FLOORS.LEVEL_2.ROOMS.GUEST_BEDROOM.NAME,
           players: [],
           items: [],
+          limit: 1,
         },
-        childrens_bedroom: {
+        [CONSTANTS.FLOORS.LEVEL_2.ROOMS.CHILDRENS_BEDROOM.KEY]: {
           id: 6,
+          name: CONSTANTS.FLOORS.LEVEL_2.ROOMS.CHILDRENS_BEDROOM.NAME,
           players: [],
           items: [],
+          limit: 1,
         },
-        childrens_washroom: {
+        [CONSTANTS.FLOORS.LEVEL_2.ROOMS.CHILDRENS_WASHROOM.KEY]: {
           id: 7,
+          name: CONSTANTS.FLOORS.LEVEL_2.ROOMS.CHILDRENS_WASHROOM.NAME,
           players: [],
           items: [],
+          limit: 1,
         },
       }
     };
@@ -57,6 +70,7 @@ export default class RoomController {
       let item = clone(this.globals.items[room.items[j]]);
       if (item.playerId) {
         item.player = clone(this.globals.players[item.playerId]);
+        delete item.player.password;
       }
       room.items[j] = item;
     }

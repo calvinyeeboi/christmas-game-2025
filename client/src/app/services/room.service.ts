@@ -3,7 +3,7 @@ import { effect, inject, Injectable, signal, WritableSignal } from '@angular/cor
 
 // Utils
 import CONSTANTS from '../../../../server/constants';
-import { ApiResponse, Room, Rooms } from '../models';
+import { ApiResponse, level, Player, Room, Rooms } from '../models';
 
 // Services
 import { WebsocketService } from './websocket.service';
@@ -16,6 +16,7 @@ export class RoomService {
   baseUrl = CONSTANTS.API_ROUTES.ROOMS.ROUTE;
   public rooms: WritableSignal<Rooms | any> = signal({});
   public currentRoom: WritableSignal<Room> = signal({});
+  public roomsAsArray: WritableSignal<any> = signal([]);
 
   private _websocketService: WebsocketService = inject(WebsocketService);
   private _dataService: DataService = inject(DataService);
@@ -27,6 +28,49 @@ export class RoomService {
         this.handleWsMsg(response.method, response.data);
       }
     });
+    effect(() => {
+      let roomsArray: any = [];
+      const floors = this.rooms();
+      for (const floorKey in floors) {
+        const floor = floors[floorKey];
+        const group: any = {
+          name: CONSTANTS.FLOORS[floorKey as level].NAME,
+          rooms: [],
+        };
+        for (const roomKey in floor) {
+          const room = floor[roomKey];
+          group.rooms.push(room);
+        }
+        roomsArray.push(group);
+      }
+      this.roomsAsArray.set(roomsArray);
+    });
+  }
+
+  canActivateRoom(id: string, player: Player): boolean {
+    if (player.id) {
+      const room = this.findRoomById(id);
+      if (room?.players && room?.limit && room.players.length <= room.limit) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  findRoomById(id: string): Room | null {
+    const roomId = parseInt(id);
+    let found: Room | null = null;
+    if (roomId) {
+      for (const floorKey in this.rooms()) {
+        for (const roomKey in this.rooms()[floorKey]) {
+          const room = this.rooms()[floorKey][roomKey];
+          if (room.id === roomId) {
+            found = room;
+          }
+        }
+      }
+    }
+    return found;
   }
   
   getRooms(): any {
@@ -37,8 +81,13 @@ export class RoomService {
     });
   }
 
-  getRoom(id: string): any {
-    return this._dataService.get({ url: `${this.baseUrl}/${id}` }).subscribe((response: any) => {
+  getRoom(id: number, playerId: number): any {
+    return this._dataService.post({
+      url: `${this.baseUrl}/${id}`,
+      body: {
+        playerId,
+      }
+    }).subscribe((response: any) => {
       if (response.room) {
         this.currentRoom.set(response.room);
       }

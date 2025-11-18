@@ -10,7 +10,7 @@ export default (app) => {
     return res.json({ rooms: globals.roomController.getRooms() });
   });
 
-  route.get('/:id', (req, res) => {
+  route.post('/:id', (req, res) => {
     const id = parseInt(req.params.id);
     return res.json({ room: globals.roomController.getRoom(id) });
   });

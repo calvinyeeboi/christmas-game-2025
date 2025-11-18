@@ -33,22 +33,61 @@ const CONSTANTS = {
       NAME: 'Red Charm',
     },
   },
-  ACTIONS: {
-    DINING_ROOM: {
-      KEY: 'DINING_ROOM',
-      CHECK_TABLE: {
-        KEY: 'checkDiningRoomTable',
-        LABEL: 'Check table',
+  FLOORS: {
+    LEVEL_1: {
+      KEY: 'LEVEL_1',
+      NAME: 'Main Floor',
+      ROOMS: {
+        DINING_ROOM: {
+          KEY: 'dining_room_1',
+          NAME: 'Dining Room',
+          ACTIONS: {
+            CHECK_TABLE: {
+              KEY: 'checkDiningRoomTable',
+              LABEL: 'Check table',
+            },
+            CHECK_PLATE: {
+              KEY: 'checkDiningRoomPlate',
+              LABEL: 'Check plate',
+            },
+            EAT_FOOD: {
+              KEY: 'eatDiningRoomFood',
+              LABEL: 'Eat that mouldy chicken',
+            },
+          }
+        },
+        BATHROOM: {
+          KEY: 'bathroom_1',
+          NAME: 'Bathroom',
+        },
+        FOYER: {
+          KEY: 'foyer_1',
+          NAME: 'Foyer',
+        },
+      }
+    },
+    LEVEL_2: {
+      KEY: 'LEVEL_2',
+      NAME: 'Upstairs',
+      ROOMS: {
+        MASTER_BEDROOM: {
+          KEY: 'master_bedroom_2',
+          NAME: 'Dining Room',
+        },
+        GUEST_BEDROOM: {
+          KEY: 'guest_bedroom_2',
+          NAME: 'Guest Bedroom',
+        },
+        CHILDRENS_BEDROOM: {
+          KEY: 'childrens_bedroom_2',
+          NAME: 'Children\'s Bedroom',
+        },
+        CHILDRENS_WASHROOM: {
+          KEY: 'childrens_washroom_2',
+          NAME: 'Children\'s Bathroom',
+        },
       },
-      CHECK_PLATE: {
-        KEY: 'checkDiningRoomPlate',
-        LABEL: 'Check plate',
-      },
-      EAT_FOOD: {
-        KEY: 'eatDiningRoomFood',
-        LABEL: 'Eat that mouldy chicken',
-      },
-    }
+    },
   },
   ENV: {
     APP: {

@@ -14,6 +14,8 @@ import { ActivatedRoute } from "@angular/router";
 import { MatIconModule } from "@angular/material/icon";
 import { MatBottomSheet } from "@angular/material/bottom-sheet";
 import { BottomSheetComponent } from "../bottom-sheet/bottom-sheet.component";
+import { PlayerService } from "../../services/player.service";
+import { RoutingService } from "../../services/routing.service";
 
 @Component({
   selector: 'app-room',
@@ -37,16 +39,18 @@ export class RoomComponent {
   adminService: AdminService = inject(AdminService);
   roomService: RoomService = inject(RoomService);
   websocketService: WebsocketService = inject(WebsocketService);
+  playerService: PlayerService = inject(PlayerService);
+  routingService: RoutingService = inject(RoutingService);
 
   msg: string = '';
   currentRoom: any = {};
-  roomId: string = '';
+  roomId: number = 0;
 
   constructor() {
     effect(() => {
       if (this.websocketService.wsEstablished()) {
-        this.roomId = this._route.snapshot.params['id'];
-        this.roomService.getRoom(this.roomId);
+        this.roomId = this._route.snapshot.params['id'] as number;
+        this.roomService.getRoom(this.roomId, this.playerService.currentPlayer().id);
       }
     });
   }

@@ -1,3 +1,5 @@
+export type level = 'LEVEL_1' | 'LEVEL_2';
+
 export interface ApiResponse {
   route: string;
   method: string;
@@ -42,4 +44,5 @@ export interface Room {
   players?: Player[];
   items?: Item[];
   actions?: Action[];
+  limit?: number;
 }

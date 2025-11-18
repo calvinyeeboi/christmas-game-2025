@@ -47,6 +47,10 @@ export class PlayerService {
     }).subscribe((response: any) => {
       if (response.player) {
         this.currentPlayer.set(response.player);
+      } else {
+        this.currentPlayer.update(() => ({
+          ...this.currentPlayer(),
+        }));
       }
     });
   }

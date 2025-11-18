@@ -8,18 +8,18 @@ export const clone = (obj) => {
   }
 };
 
-export const getActions = (key) => {
-  let actions = [];
-  if (CONSTANTS.ACTIONS[key]) {
-    for (const actionKey in CONSTANTS.ACTIONS[key]) {
-      const action = CONSTANTS.ACTIONS[key][actionKey];
+export const getActions = (actions) => {
+  let formattedActions = [];
+  if (actions) {
+    for (const actionKey in actions) {
+      const action = actions[actionKey];
       if (typeof action !== 'string') {
-        actions.push({
+        formattedActions.push({
           key: action.KEY,
           label: action.LABEL,
         });
       }
     }
   }
-  return actions;
+  return formattedActions;
 };

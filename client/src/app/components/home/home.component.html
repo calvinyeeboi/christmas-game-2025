@@ -1,5 +1,5 @@
 @if (!gameService.status().started) {
-  <span>Game has not begun yet...</span>
+  <h2>Game has not begun yet...</h2>
 } @else if (!playerService.currentPlayer().id) {
   <mat-form-field>
     <mat-label>Pick your player!</mat-label>
@@ -14,7 +14,25 @@
   <button matSuffix mat-flat-button [disabled]="!(playerId && password)" (click)="login()">
     Login
   </button>
+  @if (error()) {
+    <mat-error>Invalid login credentials</mat-error>
+  }
 } @else {
-  <span>Logged in</span>
-  <span>{{ playerService.currentPlayer().name }}</span>
+  <h2>Welcome {{ playerService.currentPlayer().name }}!</h2>
+  <mat-form-field>
+    <mat-label>Select room to enter</mat-label>
+    <mat-select [(ngModel)]="selectedRoom">
+      <mat-option>-- None --</mat-option>
+      @for (floor of availableRooms; track floor) {
+        <mat-optgroup [label]="floor.name">
+          @for (room of floor.rooms; track room) {
+            <mat-option [disabled]="room.players.length >= room.limit" [value]="room.id">{{room.name}}</mat-option>
+          }
+        </mat-optgroup>
+      }
+    </mat-select>
+  </mat-form-field>
+  <button matSuffix mat-flat-button [disabled]="!selectedRoom" (click)="enterRoom()">
+    Enter
+  </button>
 }

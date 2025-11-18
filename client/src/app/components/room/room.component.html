@@ -1,4 +1,9 @@
-<h2>{{ roomService.currentRoom().name }}</h2>
+<div class="header-container">
+  <button mat-mini-fab (click)="routingService.goToMain()">
+    <mat-icon fontIcon="arrow_back"></mat-icon>
+  </button>
+  <h2>{{ roomService.currentRoom().name }}</h2>
+</div>
 <button mat-mini-fab (click)="openBottomSheet()">
-  <mat-icon>home</mat-icon>
+  <mat-icon fontIcon="menu"></mat-icon>
 </button>
