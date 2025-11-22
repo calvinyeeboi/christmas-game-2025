@@ -20,4 +20,8 @@ export class RoutingService {
   goToMain(): void {
     this._router.navigateByUrl('');
   }
+
+  goToAdmin(): void {
+    this._router.navigateByUrl('/admin');
+  }
 }

@@ -7,11 +7,11 @@ import { MatButtonModule } from "@angular/material/button";
 
 // Services
 import { AdminService } from "../../services/admin.service";
-import { MainService } from "../../services/main.service";
 import { RoomService } from "../../services/room.service";
 import { WebsocketService } from "../../services/websocket.service";
-import { KeyValuePipe } from "@angular/common";
+import { KeyValuePipe, NgTemplateOutlet } from "@angular/common";
 import { GameService } from "../../services/game.service";
+import { MatTabsModule } from "@angular/material/tabs";
 
 @Component({
   selector: 'app-admin',
@@ -24,11 +24,12 @@ import { GameService } from "../../services/game.service";
     MatInputModule,
     ReactiveFormsModule,
     MatButtonModule,
-    KeyValuePipe
-  ],
+    KeyValuePipe,
+    MatTabsModule,
+    NgTemplateOutlet
+],
 })
 export class AdminComponent {
-  mainService: MainService = inject(MainService);
   adminService: AdminService = inject(AdminService);
   roomService: RoomService = inject(RoomService);
   gameService: GameService = inject(GameService);
@@ -39,7 +40,7 @@ export class AdminComponent {
   constructor() {
     effect(() => {
       if (this.websocketService.wsEstablished()) {
-        this.roomService.getRooms();
+        this.roomService.getHouse();
       }
     });
   }

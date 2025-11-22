@@ -3,6 +3,7 @@ import { HomeComponent } from './components/home/home.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { RoomComponent } from './components/room/room.component';
 import { CanActivateRoom } from './guards/room.guard';
+import { CanActivateAdmin } from './guards/admin.guard';
 
 export const routes: Routes = [
   {
@@ -12,6 +13,7 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: AdminComponent,
+    canActivate: [CanActivateAdmin],
   },
   {
     path: 'room/:id',

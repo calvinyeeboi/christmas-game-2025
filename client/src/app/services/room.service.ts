@@ -3,7 +3,7 @@ import { effect, inject, Injectable, signal, WritableSignal } from '@angular/cor
 
 // Utils
 import CONSTANTS from '../../../../server/constants';
-import { ApiResponse, level, Player, Room, Rooms } from '../models';
+import { ApiResponse, House, level, Player, Room } from '../models';
 
 // Services
 import { WebsocketService } from './websocket.service';
@@ -14,7 +14,7 @@ import { DataService } from './data.service';
 })
 export class RoomService {
   baseUrl = CONSTANTS.API_ROUTES.ROOMS.ROUTE;
-  public rooms: WritableSignal<Rooms | any> = signal({});
+  public house: WritableSignal<House> = signal({});
   public currentRoom: WritableSignal<Room> = signal({});
   public roomsAsArray: WritableSignal<any> = signal([]);
 
@@ -30,15 +30,15 @@ export class RoomService {
     });
     effect(() => {
       let roomsArray: any = [];
-      const floors = this.rooms();
-      for (const floorKey in floors) {
-        const floor = floors[floorKey];
+      const house = this.house();
+      for (const levelKey in house) {
+        const level = house[levelKey];
         const group: any = {
-          name: CONSTANTS.FLOORS[floorKey as level].NAME,
+          name: level.name,
           rooms: [],
         };
-        for (const roomKey in floor) {
-          const room = floor[roomKey];
+        for (const roomKey in level.rooms) {
+          const room = level.rooms[roomKey];
           group.rooms.push(room);
         }
         roomsArray.push(group);
@@ -61,9 +61,9 @@ export class RoomService {
     const roomId = parseInt(id);
     let found: Room | null = null;
     if (roomId) {
-      for (const floorKey in this.rooms()) {
-        for (const roomKey in this.rooms()[floorKey]) {
-          const room = this.rooms()[floorKey][roomKey];
+      for (const levelKey in this.house()) {
+        for (const roomKey in this.house()[levelKey].rooms) {
+          const room = this.house()[levelKey].rooms[roomKey];
           if (room.id === roomId) {
             found = room;
           }
@@ -73,10 +73,10 @@ export class RoomService {
     return found;
   }
   
-  getRooms(): any {
+  getHouse(): any {
     return this._dataService.get({ url: this.baseUrl }).subscribe((response: any) => {
-      if (response.rooms) {
-        this.rooms.set(response.rooms);
+      if (response.house) {
+        this.house.set(response.house);
       }
     });
   }
@@ -98,7 +98,7 @@ export class RoomService {
     switch (method) {
       case CONSTANTS.API_ROUTES.ROOMS.GET_ROOMS:
         if (data.rooms) {
-          this.rooms.set(data.rooms);
+          // this.rooms.set(data.rooms);
         }
         break;
       case CONSTANTS.API_ROUTES.ROOMS.GET_ROOM:

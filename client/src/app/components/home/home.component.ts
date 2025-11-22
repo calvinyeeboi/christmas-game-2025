@@ -12,7 +12,6 @@ import { MatInputModule } from "@angular/material/input";
 import { FormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { RoomService } from "../../services/room.service";
-import { Room } from "../../models";
 import { RoutingService } from "../../services/routing.service";
 
 @Component({
@@ -46,8 +45,10 @@ export class HomeComponent {
       const currentPlayer = this.playerService.currentPlayer();
       if (!currentPlayer.id && this.dirty) {
         this.error.set(true);
+      } else if (currentPlayer.isAdmin) {
+        this.routingService.goToAdmin();
       } else if (currentPlayer.id) {
-        this.roomService.getRooms();
+        this.roomService.getHouse();
       }
     });
     effect(() => {

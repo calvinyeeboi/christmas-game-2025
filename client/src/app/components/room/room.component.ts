@@ -7,7 +7,6 @@ import { MatButtonModule } from "@angular/material/button";
 
 // Services
 import { AdminService } from "../../services/admin.service";
-import { MainService } from "../../services/main.service";
 import { RoomService } from "../../services/room.service";
 import { WebsocketService } from "../../services/websocket.service";
 import { ActivatedRoute } from "@angular/router";
@@ -35,7 +34,6 @@ export class RoomComponent {
   private _route = inject(ActivatedRoute);
   private _bottomSheet = inject(MatBottomSheet);
 
-  mainService: MainService = inject(MainService);
   adminService: AdminService = inject(AdminService);
   roomService: RoomService = inject(RoomService);
   websocketService: WebsocketService = inject(WebsocketService);

@@ -10,9 +10,14 @@ export interface ApiData {
   [key: string]: any;
 }
 
+export interface GameStatus {
+  started: boolean;
+}
+
 export interface Player {
   id: number;
   name: string;
+  isAdmin?: boolean;
   inventory: Inventory;
 }
 
@@ -21,21 +26,25 @@ export interface Inventory {
 }
 
 export interface Item {
-  [key: string]: any;
+  id: number;
+  name: string;
+  playerId: number;
+  player?: Player;
 }
 
 export interface Action {
   [key: string]: any;
 }
 
-export interface Rooms {
-  [key: string]: {
-    [key: string]: Room;
-  };
+export interface House {
+  [key: string]: Level
 }
 
-export interface GameStatus {
-  started: boolean;
+export interface Level {
+  name: string;
+  rooms: {
+    [key: string]: Room,
+  };
 }
 
 export interface Room {
