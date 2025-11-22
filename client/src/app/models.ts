@@ -18,11 +18,7 @@ export interface Player {
   id: number;
   name: string;
   isAdmin?: boolean;
-  inventory: Inventory;
-}
-
-export interface Inventory {
-  [key: string]: any;
+  items: Item[];
 }
 
 export interface Item {

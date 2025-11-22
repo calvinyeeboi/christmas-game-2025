@@ -14,23 +14,23 @@
     margin-top: 0.5rem;
   }
 
-  .rooms {
-    margin-top: 0.5rem;
+  .container {
+    margin-top: 1rem;
+
+    h4 {
+      margin: 0;
+    }
+
+    ul {
+      margin-block-start: 0.25rem;
+      margin-block-end: 0.25rem;
+      list-style-type: decimal;
+      padding-inline-start: 1.5rem;
+    }
 
     &-item {
       display: flex;
       flex-direction: column;
-
-      h4 {
-        margin: 0;
-      }
-
-      ul {
-        margin-block-start: 0.25rem;
-        margin-block-end: 0.25rem;
-        list-style-type: decimal;
-        padding-inline-start: 1.5rem;
-      }
 
       &-inner {
         flex: 1;
@@ -39,7 +39,7 @@
         margin-top: 0.5rem;
 
         &-box {
-          width: 30%;
+          width: 28%;
           border: 1px solid $green-color;
           box-sizing: border-box;
           margin-right: 1rem;

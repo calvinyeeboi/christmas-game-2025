@@ -15,7 +15,7 @@ import { DataService } from './data.service';
 export class PlayerService {
   baseUrl = CONSTANTS.API_ROUTES.PLAYERS.ROUTE;
   public players: WritableSignal<Player[]> = signal([]);
-  public currentPlayer: WritableSignal<Player> = signal({ id: 0, name: '', inventory: {} });
+  public currentPlayer: WritableSignal<Player> = signal({ id: 0, name: '', items: [] });
 
   private _websocketService: WebsocketService = inject(WebsocketService);
   private _dataService: DataService = inject(DataService);

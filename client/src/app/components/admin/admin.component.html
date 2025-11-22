@@ -3,7 +3,7 @@
 <h4>Send notification</h4>
 <mat-form-field>
   <mat-label>Toast message</mat-label>
-  <input matInput type="text" [(ngModel)]="msg">
+  <input #toastInput matInput type="text" [(ngModel)]="msg">
   <button matSuffix mat-flat-button [disabled]="!msg" (click)="sendMsg()">Send</button>
 </mat-form-field>
 <mat-tab-group>
@@ -20,19 +20,33 @@
 </button>
 
 <ng-template #players>
-  <div class="players">
-    players
+  <div class="container">
+    <div class="container-item-inner">
+      @for (player of playerService.players(); track player.id) {
+        <div class="container-item-inner-box">
+          <h4>{{player.name}}</h4>
+          <div>Items:</div>
+          <ul>
+            @for (item of player.items; track item.id) {
+              <li>{{ item.name }}</li>
+            } @empty {
+              <span>No items</span>
+            }
+          </ul>
+        </div>
+      }
+    </div>
   </div>
 </ng-template>
 
 <ng-template #rooms>
-  <div class="rooms">
+  <div class="container">
     @for (level of roomService.house() | keyvalue; track level.key) {
-      <div class="rooms-item">
+      <div class="container-item">
         <h4>{{ level.value.name }}</h4>
-        <div class="rooms-item-inner">
+        <div class="container-item-inner">
           @for (room of level.value.rooms | keyvalue; track room.key) {
-            <div class="rooms-item-inner-box">
+            <div class="container-item-inner-box">
               <h4>{{ room.value.name }}</h4>
               <div>Players:</div>
               <ul>
