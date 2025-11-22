@@ -8,17 +8,23 @@ export default class PlayerController {
       1: {
           id: 1,
           name: 'Calvin',
-          inventory: {},
+          items: [],
           password: 'test',
       },
       2: {
           id: 2,
           name: 'Helen',
-          inventory: {},
+          items: [1, 2],
           isAdmin: true,
           password: 'test',
       },
     };
+  }
+
+  replaceItems(player) {
+    for (let i = 0; i < player.items.length; i++) {
+      player.items[i] = clone(this.globals.items[player.items[i]]);
+    }
   }
 
   getPlayersAsArray() {
@@ -26,6 +32,7 @@ export default class PlayerController {
     let clonedPlayers = clone(this.globals.players);
     for (const key in clonedPlayers) {
       delete clonedPlayers[key]['password'];
+      this.replaceItems(clonedPlayers[key]);
       returnArr.push(clonedPlayers[key]);
     }
     return returnArr;
@@ -35,6 +42,7 @@ export default class PlayerController {
     let clonedPlayers = clone(this.globals.players);
     if (clonedPlayers[id] && clonedPlayers[id].password === password) {
       delete clonedPlayers[id].password;
+      this.replaceItems(clonedPlayers[id]);
       return clonedPlayers[id];
     }
     return null;
