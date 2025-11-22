@@ -9,13 +9,14 @@ export default class PlayerController {
           id: 1,
           name: 'Calvin',
           inventory: {},
-          password: 'testing123',
+          password: 'test',
       },
       2: {
           id: 2,
           name: 'Helen',
           inventory: {},
-          password: 'Testing123!',
+          isAdmin: true,
+          password: 'test',
       },
     };
   }

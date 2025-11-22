@@ -35,7 +35,7 @@ const CONSTANTS = {
   },
   FLOORS: {
     LEVEL_1: {
-      KEY: 'LEVEL_1',
+      KEY: 'level_1',
       NAME: 'Main Floor',
       ROOMS: {
         DINING_ROOM: {
@@ -67,7 +67,7 @@ const CONSTANTS = {
       }
     },
     LEVEL_2: {
-      KEY: 'LEVEL_2',
+      KEY: 'level_2',
       NAME: 'Upstairs',
       ROOMS: {
         MASTER_BEDROOM: {

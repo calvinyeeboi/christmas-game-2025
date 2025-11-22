@@ -7,7 +7,7 @@ export default (app) => {
   app.use(`/${CONSTANTS.API_ROUTES.ROOMS.ROUTE}`, route);
 
   route.get('', (req, res) => {
-    return res.json({ rooms: globals.roomController.getRooms() });
+    return res.json({ house: globals.roomController.getHouse() });
   });
 
   route.post('/:id', (req, res) => {
